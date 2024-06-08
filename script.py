@@ -1,5 +1,6 @@
 import requests
 import smtplib
+import streamlit as st
 
 # API Key
 api_file = open("api-key.txt", "r")
@@ -33,3 +34,6 @@ miles = r.json()["rows"][0]["elements"][0]["distance"]["value"]
 # Print the total travel time
 # print("\nThe total travel time from home to work is = ", time)
 print('\n The distance between ' + dummy_home + ' and ' + dummy_work + ' is ' + distance + '\n It will take ' + time)
+
+# Display the result in Streamlit app
+st.write(f'\n The distance between {dummy_home} and {dummy_work} is {distance}\n It will take {time}')
