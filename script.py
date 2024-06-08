@@ -1,39 +1,38 @@
 import requests
-import smtplib
 import streamlit as st
 
-# API Key
-api_file = open("api-key.txt", "r")
-api_key = api_file.read()
-api_file.close()
+# Read the API Key from the file
+with open("api-key.txt", "r") as api_file:
+    api_key = api_file.read()
 
 # Home address input
-# home = input("Enter home address\n")
-dummy_home = '406 Greenbriar Dr, Normal'
+home = st.text_input("Enter home address", '406 Greenbriar Dr, Normal')
 
 # Work address input
-# work = input("Enter work address\n")
-dummy_work = '100 Rivian Motorway, Normal'
+work = st.text_input("Enter work address", '100 Rivian Motorway, Normal')
 
-# Base URL
-url = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&'
+# If the user has entered both addresses, proceed with the API request
+if home and work:
+    # Base URL
+    url = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&'
 
-api_key = 'AIzaSyDfhBriP6OykNGfLxu0uvM20oijDsa5R7o'
-# Get response
-r = requests.get(url + "origins=" + dummy_home + "&destinations=" + dummy_work + "&key=" + api_key)
-# print(r)
+    # Get response
+    r = requests.get(url + "origins=" + home + "&destinations=" + work + "&key=" + api_key)
 
-# Return time as text and as seconds
-time = r.json()["rows"][0]["elements"][0]["duration"]["text"]
-seconds = r.json()["rows"][0]["elements"][0]["duration"]["value"]
+    # Check if the request was successful
+    if r.status_code == 200:
+        # Parse the response
+        data = r.json()
 
-distance = r.json()["rows"][0]["elements"][0]["distance"]["text"]
-miles = r.json()["rows"][0]["elements"][0]["distance"]["value"]
+        # Check if the response contains the required information
+        if data["rows"] and data["rows"][0]["elements"] and data["rows"][0]["elements"][0]["status"] == "OK":
+            # Extract travel time and distance
+            time = data["rows"][0]["elements"][0]["duration"]["text"]
+            distance = data["rows"][0]["elements"][0]["distance"]["text"]
 
-# print(r.json())
-# Print the total travel time
-# print("\nThe total travel time from home to work is = ", time)
-print('\n The distance between ' + dummy_home + ' and ' + dummy_work + ' is ' + distance + '\n It will take ' + time)
-
-# Display the result in Streamlit app
-st.write(f'\n The distance between {dummy_home} and {dummy_work} is {distance}\n It will take {time}')
+            # Display the result in the Streamlit app
+            st.write(f'The distance between {home} and {work} is {distance}. It will take {time}.')
+        else:
+            st.write("Could not retrieve the distance and time. Please check the addresses and try again.")
+    else:
+        st.write("Error fetching data from Google Maps API.")
