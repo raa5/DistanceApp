@@ -31,7 +31,7 @@ if home and work:
             distance = data["rows"][0]["elements"][0]["distance"]["text"]
 
             # Display the result in the Streamlit app
-            st.write(f'The distance between {home} and {work} is {distance}. It will take {time}.')
+            st.write(f'You want to go between {home} and {work}\n The distance is {distance} \n It will take {time}.')
         else:
             st.write("Could not retrieve the distance and time. Please check the addresses and try again.")
     else:
