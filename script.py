@@ -19,7 +19,7 @@ url = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&'
 
 api_key = 'AIzaSyDfhBriP6OykNGfLxu0uvM20oijDsa5R7o'
 # Get response
-r = requests.get(url + "origins=" + home + "&destinations=" + work + "&key=" + api_key)
+r = requests.get(url + "origins=" + dummy_home + "&destinations=" + dummy_work + "&key=" + api_key)
 # print(r)
 
 # Return time as text and as seconds
@@ -32,4 +32,4 @@ miles = r.json()["rows"][0]["elements"][0]["distance"]["value"]
 # print(r.json())
 # Print the total travel time
 # print("\nThe total travel time from home to work is = ", time)
-print('\n The distance between ' + home + ' and ' + work + ' is ' + distance + '\n It will take ' + time)
+print('\n The distance between ' + dummy_home + ' and ' + dummy_work + ' is ' + distance + '\n It will take ' + time)
