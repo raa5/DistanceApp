@@ -6,20 +6,20 @@ import streamlit as st
 #     api_key = api_file.read()
 
 # Home address input
-home = st.text_input("Enter home address", '406 Greenbriar Dr, Normal')
+origin = st.text_input("Enter origin address", '406 Greenbriar Dr, Normal')
 
 # Work address input
-work = st.text_input("Enter work address", '100 Rivian Motorway, Normal')
+destination = st.text_input("Enter destination address", '100 Rivian Motorway, Normal')
 
 api_key = 'AIzaSyDfhBriP6OykNGfLxu0uvM20oijDsa5R7o'
 
 # If the user has entered both addresses, proceed with the API request
-if home and work:
+if origin and destination:
     # Base URL
     url = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&'
 
     # Get response
-    r = requests.get(url + "origins=" + home + "&destinations=" + work + "&key=" + api_key)
+    r = requests.get(url + "origins=" + origin + "&destinations=" + destination + "&key=" + api_key)
 
     # Check if the request was successful
     if r.status_code == 200:
