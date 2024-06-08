@@ -33,7 +33,7 @@ if home and work:
             distance = data["rows"][0]["elements"][0]["distance"]["text"]
 
             # Display the result in the Streamlit app
-            st.write(f'You want to go between {data['origin_addresses'][0]} and {data['destination_addresses'][0]}.')
+            st.write(f'You want to go between:  \n  {data["origin_addresses"][0]} to  \n {data["destination_addresses"][0]}.')
             st.write(f'The distance is {distance}.')
             st.write(f'It will take {time}.')
         else:
