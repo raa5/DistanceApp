@@ -7,11 +7,11 @@ api_key = api_file.read()
 api_file.close()
 
 # Home address input
-home = input("Enter home address\n")
+# home = input("Enter home address\n")
 dummy_home = '406 Greenbriar Dr, Normal'
 
 # Work address input
-work = input("Enter work address\n")
+# work = input("Enter work address\n")
 dummy_work = '100 Rivian Motorway, Normal'
 
 # Base URL
